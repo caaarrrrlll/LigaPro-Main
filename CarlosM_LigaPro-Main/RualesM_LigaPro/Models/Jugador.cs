@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarlosM_LigaPro.Models
 {
@@ -26,7 +27,9 @@ namespace CarlosM_LigaPro.Models
         public int Asistencias { get; set; }
 
         [Range(0, double.MaxValue)]
+
         [DisplayName("Sueldo")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Sueldo { get; set; }
 
         [Required]
