@@ -1,7 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using CarlosM_LigaPro.Data;
+using CarlosM_LigaPro.Interfaces;
+using CarlosM_LigaPro.Repo;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args); 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<LigaProDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register Repositories
+builder.Services.AddScoped<iEquipoRepo, EquipoRepo>();
 
 var app = builder.Build();
 
@@ -24,3 +31,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();
+
+builder.Services.AddScoped<iEquipoRepo, EquipoRepo>();

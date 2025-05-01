@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github\\workflows",
+    "\\CarlosM_LigaPro-Main",
+    "\\CarlosM_LigaPro-Main\\RualesM_LigaPro"
   ],
-  "SelectedNode": "\\CarlosM_LigaPro.sln (CarlosM_LigaPro-Main\\CarlosM_LigaPro.sln)",
+  "SelectedNode": "\\CarlosM_LigaPro-Main\\CarlosM_LigaPro.sln",
   "PreviewInSolutionExplorer": false
 }

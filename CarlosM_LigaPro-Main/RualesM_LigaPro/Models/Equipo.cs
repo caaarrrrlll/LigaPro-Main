@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic; //Proporcinado al corregir con Copilot
 
 namespace CarlosM_LigaPro.Models
 {
@@ -10,7 +11,7 @@ namespace CarlosM_LigaPro.Models
         [MaxLength(100)]
         [DisplayName ("Nombre del equipo: ")]
         [Required]
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = string.Empty;
         public string? Logo { get; set; }
         public string? Descripcion { get; set; }
         [Range(0, 100)]
@@ -37,6 +38,7 @@ namespace CarlosM_LigaPro.Models
                 return puntos;
             } 
         }
+        public ICollection<Jugador> Jugadores { get; set; } = new List<Jugador>();
 
     }
 }

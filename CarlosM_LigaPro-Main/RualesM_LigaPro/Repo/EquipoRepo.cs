@@ -1,11 +1,14 @@
-﻿using CarlosM_LigaPro.Interfaces;
+﻿using CarlosM_LigaPro.Data;
+using CarlosM_LigaPro.Interfaces;
 using CarlosM_LigaPro.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarlosM_LigaPro.Repo
 {
+    
     public class EquipoRepo : iEquipoRepo
     {
-
+        
         public static List<Equipo> Equipos = new List<Equipo>
         {
              new Equipo
@@ -54,6 +57,8 @@ namespace CarlosM_LigaPro.Repo
             return false;
         }
 
+        private readonly LigaProDbContext _context;
+        
         public bool CrearEquipo(Equipo equipo)
         {
 
@@ -71,11 +76,48 @@ namespace CarlosM_LigaPro.Repo
             return Equipos.OrderByDescending(item => item.Puntos).ToList();
 
         }
+        public async Task<Equipo> GetEquipoByIdAsync(int id)
+        {
+            var equipo = await _context.Equipos.Include(e => e.Jugadores).FirstOrDefaultAsync(e => e.Id == id);
+            if (equipo == null)
+            {
+                throw new KeyNotFoundException($"No se encontró un equipo con el ID {id}");
+            }
+            return equipo;
+        }
+
 
         public bool EliminarEquipo()
         {
             throw new NotImplementedException();
         }
+        public async Task<IEnumerable<Equipo>> GetEquiposAsync()
+        {
+            return await _context.Equipos.Include(e => e.Jugadores).ToListAsync();
+        }
+        public async Task AddEquipoAsync(Equipo equipo)
+        {
+            _context.Equipos.Add(equipo);
+            await _context.SaveChangesAsync();
+        }
+        public async Task UpdateEquipoAsync(Equipo equipo)
+        {
+            _context.Equipos.Update(equipo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteEquipoAsync(int id)
+        {
+            var equipo = await _context.Equipos.FindAsync(id);
+            if (equipo != null)
+            {
+                _context.Equipos.Remove(equipo);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        
+
     }
 
 }
