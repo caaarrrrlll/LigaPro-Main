@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Reporte";
+    var topGoleadores = ViewBag.TopGoleadores as List<CarlosM_LigaPro.Models.Jugador>;
+    var topAsistentes = ViewBag.TopAsistentes as List<CarlosM_LigaPro.Models.Jugador>;
+    var topEquiposPresupuesto = ViewBag.TopEquiposPresupuesto as List<dynamic>;
+}
+
+<h2>Reporte</h2>
+
+<!-- Tabla de los 5 goleadores -->
+<h3>Top 5 Goleadores</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Nombre</th>
+            <th>Equipo</th>
+            <th>Goles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (topGoleadores != null)
+        {
+            int posicion = 1;
+            foreach (var jugador in topGoleadores)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@jugador.Nombre</td>
+                    <td>@jugador.Equipo?.Nombre</td>
+                    <td>@jugador.Goles</td>
+                </tr>
+                posicion++;
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Tabla de los 5 jugadores con más asistencias -->
+<h3>Top 5 Asistentes</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Nombre</th>
+            <th>Equipo</th>
+            <th>Asistencias</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (topAsistentes != null)
+        {
+            int posicion = 1;
+            foreach (var jugador in topAsistentes)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@jugador.Nombre</td>
+                    <td>@jugador.Equipo?.Nombre</td>
+                    <td>@jugador.Asistencias</td>
+                </tr>
+                posicion++;
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Tabla de los 5 equipos con mayor presupuesto -->
+<h3>Top 5 Equipos con Mayor Presupuesto</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Equipo</th>
+            <th>Presupuesto Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (topEquiposPresupuesto != null)
+        {
+            int posicion = 1;
+            foreach (var equipo in topEquiposPresupuesto)
+            {
+                <tr>
+                    <td>@posicion</td>
+                    <td>@equipo.Equipo.Nombre</td>
+                    <td>@equipo.Presupuesto:C</td>
+                </tr>
+                posicion++;
+            }
+        }
+    </tbody>
+</table>

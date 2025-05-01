@@ -3,20 +3,18 @@ using CarlosM_LigaPro.Interfaces;
 using CarlosM_LigaPro.Repo;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args); 
-// Add services to the container.
-builder.Services.AddDbContext<LigaProDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var builder = WebApplication.CreateBuilder(args);
 
-// Register Repositories
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<LigaProDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<iEquipoRepo, EquipoRepo>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -29,7 +27,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Equipo}/{action=ListaEquipos}/{id?}");
+
 app.Run();
 
-builder.Services.AddScoped<iEquipoRepo, EquipoRepo>();

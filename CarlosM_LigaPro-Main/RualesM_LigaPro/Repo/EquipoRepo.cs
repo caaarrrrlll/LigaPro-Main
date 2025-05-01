@@ -115,8 +115,13 @@ namespace CarlosM_LigaPro.Repo
                 await _context.SaveChangesAsync();
             }
         }
+        public EquipoRepo(LigaProDbContext context)
+        {
+            _context = context;
+        }
 
-        
+
+
 
     }
 
