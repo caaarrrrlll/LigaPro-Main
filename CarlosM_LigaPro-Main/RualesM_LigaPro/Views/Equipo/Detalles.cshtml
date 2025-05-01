@@ -1,0 +1,35 @@
+﻿@model CarlosM_LigaPro.Models.Equipo
+
+<h2>@Model.Nombre</h2>
+<img src="@Model.Logo" alt="Logo de @Model.Nombre" style="width: 150px;" />
+<p>@Model.Descripcion</p>
+
+<h3>Actualizar Información</h3>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="partidosGanados"></label>
+        <input asp-for="partidosGanados" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="partidosPerdidos"></label>
+        <input asp-for="partidosPerdidos" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="partidosEmpatados"></label>
+        <input asp-for="partidosEmpatados" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+
+<script>
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+            const ganados = parseInt(document.querySelector('[name="partidosGanados"]').value) || 0;
+            const empatados = parseInt(document.querySelector('[name="partidosEmpatados"]').value) || 0;
+            const puntos = (ganados * 3) + (empatados * 1);
+            document.getElementById('puntosTotales').innerText = `Puntos Totales: ${puntos}`;
+        });
+    });
+</script>
+<p id="puntosTotales">Puntos Totales: @Model.Puntos</p>

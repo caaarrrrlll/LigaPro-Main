@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CarlosM_LigaPro.Models.Equipo>
+
+<h2>Tabla de Posiciones</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Equipo</th>
+            <th>Puntos</th>
+            <th>Partidos Jugados</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var equipo in Model.Select((e, index) => new { Equipo = e, Posicion = index + 1 }))
+        {
+            <tr>
+                <td>@equipo.Posicion</td>
+                <td>@equipo.Equipo.Nombre</td>
+                <td>@equipo.Equipo.Puntos</td>
+                <td>@equipo.Equipo.partidosJugados</td>
+                <td>
+                    <a asp-action="Detalles" asp-route-id="@equipo.Equipo.Id" class="btn btn-primary">Ver información Equipo</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

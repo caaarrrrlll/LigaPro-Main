@@ -18,7 +18,8 @@ namespace CarlosM_LigaPro.Controllers
         public async Task<IActionResult> ListaEquipos()
         {
             var equipos = await _equipoRepo.GetEquiposAsync();
-            return View(equipos);
+            var equiposOrdenados = equipos.OrderByDescending(e => e.Puntos).ToList();
+            return View(equiposOrdenados);
         }
 
         // Acción para mostrar el formulario de edición
